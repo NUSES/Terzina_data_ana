@@ -94,7 +94,7 @@ pip install numpy pandas matplotlib
 
 ## Run
 
-python mapping.py
+python Mapping_HitMap.py
 
 To generate plots:
 plot_camera_map("channel_summary.csv", "HIT", "Camera HIT Occupancy")  

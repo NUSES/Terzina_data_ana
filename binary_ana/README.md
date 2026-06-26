@@ -202,7 +202,7 @@ self.file_path = "data_xx_xx/data_xx_xx.bin"
 
 Run:
 
-python main.py
+python data_analyzer_pro.py
 
 ---
 
