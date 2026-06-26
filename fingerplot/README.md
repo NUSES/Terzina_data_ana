@@ -1,5 +1,7 @@
 # TERZINA FPA — Binary Parser & Finger Plot Analysis
 
+Author: Muhammad Abdullahi muhammad.abdullahi@gssi.it
+
 This script parses the .bin files from the TERZINA FPA
 readout (4 DAQ x 5 ASIC x 32 CH = 640 channels),builds per-channel
 ADC histograms, and produces finger plots and per-channel
@@ -73,5 +75,3 @@ CAVEATS
   DCR, those metrics will be biased. Cross-check against the
   finger plot.
 
-
-Author: Muhammad Abdullahi muhammad.abdullahi@gssi.it
