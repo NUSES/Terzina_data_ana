@@ -1,4 +1,3 @@
-Author: Muhammad Abdullahi muhammad.abdullahi@gssi.it
 ==============================================================
   TERZINA FPA — Binary Parser & Finger Plot Analysis
 ==============================================================
@@ -75,3 +74,6 @@ CAVEATS
   pedestal/PVR/resolution routines — if it's actually noise or
   DCR, those metrics will be biased. Cross-check against the
   finger plot.
+
+
+Author: Muhammad Abdullahi muhammad.abdullahi@gssi.it
