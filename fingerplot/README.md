@@ -1,7 +1,5 @@
 
-==============================================================
   TERZINA FPA — Binary Parser & Finger Plot Analysis
-==============================================================
 
 This script parses the .bin files from the TERZINA FPA
 readout (4 DAQ x 5 ASIC x 32 CH = 640 channels),builds per-channel
