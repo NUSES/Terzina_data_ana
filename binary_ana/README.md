@@ -253,8 +253,3 @@ Potential future developments include:
 
 ---
 
-## Author
-
-TERZINA Data Analysis Framework
-
-Developed for detector data decoding, monitoring and validation.
