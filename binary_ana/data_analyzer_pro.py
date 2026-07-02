@@ -121,8 +121,12 @@ class DataProcessing:
         #TIME = "18_35"
 
         #        self.file_path = f"download_data_{DATE}-{TIME}.bin"
-        self.file_path = "data_05_28-11_32/data_05_28-11_32.bin"
-        self.output_dir = "data_05_28-11_32/"
+        folder = "07_01-16_16"
+
+        self.date_str, self.time_str = folder.split("-")
+        self.file_path = f"../terzina_turlab_data/{self.date_str}-{self.time_str}/data_{self.date_str}-{self.time_str}.bin"
+
+        self.output_dir = f"../terzina_turlab_data/{self.date_str}-{self.time_str}/"
         self.plot_dir = os.path.join(self.output_dir, "plots")
 
         os.makedirs(self.output_dir, exist_ok=True)
@@ -130,7 +134,7 @@ class DataProcessing:
 
         self.csv_file = os.path.join(
             self.output_dir,
-            "terzina_data_converted_05_28-11_32.csv"
+            f"terzina_data_converted_{self.date_str}-{self.time_str}.csv"
         )
 
         if os.path.exists(self.csv_file):
@@ -176,7 +180,7 @@ class DataProcessing:
         
         output_file = os.path.join(
             self.output_dir,
-            "channel_summary_11_32.csv"
+            f"channel_summary_{self.time_str}.csv"
         )
         
         prefixes = [
