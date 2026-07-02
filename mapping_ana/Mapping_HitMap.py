@@ -400,7 +400,7 @@ asic_letters = ['a', 'b', 'c', 'd', 'e']
 # GENERIC CAMERA MAP PLOT
 # =========================================================
 
-def plot_camera_map(csv_file, value_column, title):
+def plot_camera_map(csv_file, value_column, title, output_dir, finename=None):
 
     summary = pd.read_csv(csv_file, sep=";")
 
@@ -603,28 +603,42 @@ def plot_camera_map(csv_file, value_column, title):
         linewidth=0.2
     )
 
+    fig.savefig(
+        f"{output_dir}/{finename}",
+        dpi=300
+    )
+
     plt.show()
 
 # =========================================================
 # GENERATE ALL MAPS
 # =========================================================
+folder = "07_01-16_16"
 
-csv_file = "/home/caterina/Documenti/mapping_ICD/mapping_code/data_05_13-17_30/channel_summary_17_30.csv"
+date_str, time_str = folder.split("-")
+csv_file = f"../terzina_turlab_data/{folder}/channel_summary_{time_str}.csv"
+output_dir = f"../terzina_turlab_data/{date_str}-{time_str}/plots/"
 
 plot_camera_map(
     csv_file,
     "HIT",
-    "Camera HIT Occupancy"
+    "Camera HIT Occupancy",
+    output_dir,
+    finename=f"camera_hit_map_{date_str}_{time_str}.png"
 )
 
 plot_camera_map(
     csv_file,
     "HG_MEAN",
-    "Camera HG Mean"
+    "Camera HG Mean",
+    output_dir,
+    finename=f"camera_hg_map_{date_str}_{time_str}.png"
 )
 
 plot_camera_map(
     csv_file,
     "LG_MEAN",
-    "Camera LG Mean"
+    "Camera LG Mean",
+    output_dir,
+    finename=f"camera_lg_map_{date_str}_{time_str}.png"
 )
