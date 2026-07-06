@@ -474,7 +474,10 @@ class DataProcessing:
                 f.D4_REAL = u64()
 
             elif daq_id == 0xDEADBEEF:
-                break
+                # HOTFIX. Load in data from all DAQs even if not all are enabled.
+                # Empty DAQ slots are encoded as 0xDEADBEEF placeholder words.
+                # Keep scanning because other DAQs may still contain data.
+                continue
 
             else:
 
