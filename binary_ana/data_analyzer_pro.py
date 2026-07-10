@@ -29,6 +29,7 @@ Output:
 """
 import os
 import csv
+import argparse
 from dataclasses import dataclass, field, fields, is_dataclass
 from typing import List
 import matplotlib.pyplot as plt
@@ -121,12 +122,12 @@ class DataProcessing:
         #TIME = "18_35"
 
         #        self.file_path = f"download_data_{DATE}-{TIME}.bin"
-        folder = "07_01-16_16"
+        folder = "05_13-17_59"
 
         self.date_str, self.time_str = folder.split("-")
-        self.file_path = f"../terzina_turlab_data/{self.date_str}-{self.time_str}/data_{self.date_str}-{self.time_str}.bin"
+        self.file_path = f"../data/{self.date_str}-{self.time_str}/data_{self.date_str}-{self.time_str}.bin"
 
-        self.output_dir = f"../terzina_turlab_data/{self.date_str}-{self.time_str}/"
+        self.output_dir = f"../data/{self.date_str}-{self.time_str}/"
         self.plot_dir = os.path.join(self.output_dir, "plots")
 
         os.makedirs(self.output_dir, exist_ok=True)
@@ -807,6 +808,15 @@ class DataProcessing:
 
 if __name__ == "__main__":
 
+    parser = argparse.ArgumentParser(description="Data processing")
+    parser.add_argument(
+        "--plots",
+        action="store_true",
+        help="Enable plot generation"
+    )
+
+    args = parser.parse_args()
+
     data_proc = DataProcessing()
 
     data_proc.process_pck()
@@ -814,11 +824,12 @@ if __name__ == "__main__":
     data_proc.print_active_channels()
     data_proc.print_hit_stats()
     data_proc.export_channel_summary()
-    data_proc.plot_all_channels(mode="HG")
-    data_proc.plot_all_channels(mode="LG")
-    data_proc.plot_all_channels(mode="HIT")
 
-    data_proc.plot_hit_occupancy()
+    if args.plots:
+        data_proc.plot_all_channels(mode="HG")
+        data_proc.plot_all_channels(mode="LG")
+        data_proc.plot_all_channels(mode="HIT")
+        data_proc.plot_hit_occupancy()
 
     print()
     print("===================================")
