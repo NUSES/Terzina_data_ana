@@ -87,11 +87,7 @@ DEFAULT_MIN_PEAKS = 3     # ignore channels resolving fewer peaks than this
 DEFAULT_N_INDIVIDUAL = 3  # full-size single-channel plots to also save
 DEFAULT_NCOLS = 4         # columns in the grid
 
-# The NI readout kit carries one dead ASIC that fires on every event
-# regardless of light, and would otherwise dominate any brightness search.
-# Bench name "DAQ 2 ASIC D"; DAQ 3 ASIC D in the binary numbering used here.
-# Irrelevant to the LNGS and Geneva datasets, which use different hardware —
-# pass --keep-all for those.
+
 DEFAULT_BAD_ASICS: Tuple[Tuple[int, str], ...] = ((3, "D"),)
 
 
