@@ -31,7 +31,24 @@ board finishes reading out the CITIROC (following a trigger) and sends the data
 to the concentrator board.
 
 Q4. How can you determine the DAQ duration from the data?
-A4. You cannot, the software should be modified to provide this information.
+A4. You cannot, at least directly with the NI kit software that should be modified 
+    to provide this information, whereas with the mini-backplane kit software prints
+    a DAQ start and stop timestamp directly on the software GUI. The event
+    timestamps can be used directly also to estimate the DAQ duration, however this
+    would only estimate the time elapsed between the first and last trigger events
+    received. The time delay between the DAQ start and the first trigger might not
+    be accurately reconstructed in this fashion, however, if the timestamp is not
+    reset to zero with every new DAQ start (see also next question).
+
+Q6. Do the timestaps always start counting from zero?
+A6. The concentrator timestamp clock and the DAQ boards timestamp clock are not
+    synchronized, however (and the following needs confirmation by NI), the start
+    of every DAQ session sends a reset signal to the DAQ and concentrator boards
+    simultaneously, which should reset the clock tick counter to zero. This means,
+    consequently, that the T0 of all timestamps has a value of 0 and is synchronized
+    with the start of the DAQ session (in contradiction with Q1). Therefore it should
+    be possible to better estimate the DAQ duration by looking at the timestamp of
+    the last trigger event received.
 """
 
 import sys
