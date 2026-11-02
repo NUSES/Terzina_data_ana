@@ -337,6 +337,9 @@ class DataProcessing:
 
             return val
 
+        if len(payload) % 4 != 0:
+            raise ValueError(f"payload length ({len(payload)}) must be a multiple of 4 bytes")
+
         # ====================================================
         # HEADER
         # ====================================================
@@ -357,9 +360,9 @@ class DataProcessing:
         # DAQ DATA
         # ====================================================
 
-        daq_id = u32()
 
-        while offset <= len(payload) - 4:
+        while offset < len(payload):
+            daq_id = u32()
 
             # =================================================
             # DAQ1
@@ -382,7 +385,6 @@ class DataProcessing:
                 f.D1_LOST = u64()
                 f.D1_REAL = u64()
 
-                daq_id = u32()
                 id_prog += 1
 
             # =================================================
@@ -406,7 +408,6 @@ class DataProcessing:
                 f.D2_LOST = u64()
                 f.D2_REAL = u64()
 
-                daq_id = u32()
                 id_prog += 1
 
             # =================================================
@@ -430,7 +431,6 @@ class DataProcessing:
                 f.D3_LOST = u64()
                 f.D3_REAL = u64()
 
-                daq_id = u32()
                 id_prog += 1
 
             # =================================================
@@ -454,7 +454,6 @@ class DataProcessing:
                 f.D4_LOST = u64()
                 f.D4_REAL = u64()
 
-                daq_id = u32()
                 id_prog += 1
 
             # =================================================
@@ -463,14 +462,24 @@ class DataProcessing:
 
             elif daq_id == 0xDEADBEEF:
 
-                if id_prog == 3:
+                if id_prog == 3: # The reasoning behind this is...?
                     break
-
-                id_prog += 1
-
-                daq_id = u32()
-                daq_id = u32()
-
+                    
+                # We do nothing here other than increasing `id_prog`
+                
+                # If there are additional 0xDEADBEEF words after this one, the
+                # combination of the call to `daq_id = u32()`  at the top of 
+                # the while loop and this `elif` branch will consume them all.
+                
+                # NOTE. We might as well do away the `id_prog == 3` check since
+                # if there is additional valid data after a `0xDEADBEEF` word,
+                # the `break` statement might make it impossible to parse it.
+                
+                # NOTE. If the `id_prog` check is dropped, then we can drop the
+                # `id_prog` variable altogether.
+                
+                id_prog += 1             
+                
             # =================================================
             # UNKNOWN DAQ
             # =================================================
@@ -478,12 +487,9 @@ class DataProcessing:
             else:
 
                 id_prog += 1
+                # Do we know the logic behind this specific jump of 668 bytes?
                 offset += 668
-
-                if offset > len(payload) - 4:
-                    break
-
-                daq_id = u32()
+                
 
         return f
 
